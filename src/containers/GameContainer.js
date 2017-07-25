@@ -7,6 +7,7 @@ export default class GameContainer extends Component {
     super();
     this.checkWinner = this.checkWinner.bind(this);
     this.chooseWord = this.chooseWord.bind(this);
+    this.getIncorrect = this.getIncorrect.bind(this);
     this.guessLetter = this.guessLetter.bind(this);
     this.handleKeyEntered = this.handleKeyEntered.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
@@ -42,6 +43,17 @@ export default class GameContainer extends Component {
       return (word.length >= filters[difficulty][0] && word.length <= filters[difficulty][1]);
     });
     return wordsFiltered[Math.floor(Math.random() * wordsFiltered.length)];
+  }
+
+  getIncorrect() {
+    const guessed = this.state.guessed;
+    const word = this.state.word.split('');
+    return guessed.reduce((total, letter) => {
+      if (!(word.includes(letter))) {
+        total.push(letter);
+      }
+      return total;
+    }, [])
   }
 
   guessLetter() {
@@ -92,10 +104,10 @@ export default class GameContainer extends Component {
 
   //lifecycles
   componentDidUpdate() {
-    let { playing, guessed, word } = this.state;
+    let { playing, word } = this.state;
     if (word === '') return;
-
-    if (((playing) && (guessed.length >= 8 || this.checkWinner()))) {
+    console.log(this.getIncorrect().length);
+    if (((playing) && (this.getIncorrect().length >= 8 || this.checkWinner()))) {
       this.setState({
         ...this.state,
         playing: false
@@ -107,6 +119,7 @@ export default class GameContainer extends Component {
     return (
       <Game
         guessed={this.state.guessed}
+        incorrect={this.getIncorrect()}
         onClickPlay={this.handlePlay}
         onKeyEntered={this.handleKeyEntered}
         inputValue={this.state.inputValue}/>
