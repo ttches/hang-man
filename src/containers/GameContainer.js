@@ -103,6 +103,10 @@ export default class GameContainer extends Component {
   }
 
   //lifecycles
+  componentWillMount() {
+    this.handlePlay();
+  }
+
   componentDidUpdate() {
     let { playing, word } = this.state;
     if (word === '') return;
@@ -122,7 +126,9 @@ export default class GameContainer extends Component {
         incorrect={this.getIncorrect()}
         onClickPlay={this.handlePlay}
         onKeyEntered={this.handleKeyEntered}
-        inputValue={this.state.inputValue}/>
+        playing={this.state.playing}
+        inputValue={this.state.inputValue}
+        word={this.state.word}/>
     );
   }
 }

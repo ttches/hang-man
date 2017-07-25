@@ -18,12 +18,18 @@ body {
 }
 
 .game-container {
+  height: 350px;
   text-align: center;
+}
+
+.countdown {
+  font-size: 150px;
 }
 
 button {
   display: block;
   margin: auto;
+  margin-top: 20px;
 }
 
 input {
@@ -34,7 +40,27 @@ input {
   width: 30px;
 }
 
+.incorrect-container {
+  padding: 20px;
+}
+
 .incorrect {
+  color: red;
+  font-size: 1.3em;
   padding: 10px;
   text-transform: uppercase;
+}
+
+.word-container {
+  padding: 10px;
+}
+
+.correct {
+  font-size: 2em;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.missing {
+  color: red;
 }
