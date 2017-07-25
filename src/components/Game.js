@@ -14,47 +14,26 @@ const Game = ({onClickPlay, onKeyEntered, inputValue, guessed, word,
     if (!(playing)) {
       className += (guessed.includes(letter) ? '' : ' missing')
     }
-    return className
+    return className;
   }
 
-  const getCorrect = () => {
-    const wordSplit = word.split('');
-    return wordSplit.reduce((total, letter) => {
-      if ((guessed.includes(letter))) {
-        total.push(letter);
+  const formatCorrect = () => {
+    return word.split('').map((letter, i) => {
+      let value = letter;
+      if ((playing) && !(guessed.includes(letter))) {
+        value = '_'
       }
-      return total;
-    }, [])
+      return (
+        <span className={addClasses(letter)} key={i}>{value}</span>
+      );
+    });
   }
-
-  const formatCorrect = (guessed.length > 0)
-    ?
-      word.split('').map((letter, i) => {
-        let value;
-        let correct = [...getCorrect()];
-        if (correct.includes(letter)) {
-          value = letter;
-        } else {
-          value = '_';
-        }
-        return (
-          <span className={addClasses(letter)} key={i}>{value}</span>
-        )
-      })
-    :
-      word.split('').map((letter, i) => {
-        return (
-          <span className={addClasses()} key={i}>{'_'}</span>
-        )
-      });
-
-
 
 
   return (
     <div className='game-container'>
       <div className='countdown'>{8 - incorrect.length}</div>
-      <div className='word-container'>{formatCorrect}</div>
+      <div className='word-container'>{formatCorrect()}</div>
       <input type='text' onKeyUp={onKeyEntered} value={inputValue} />
       <button onClick={onClickPlay}>New Game</button>
       <div className='incorrect-container'>{formatIncorrect}</div>

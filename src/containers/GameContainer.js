@@ -35,7 +35,7 @@ export default class GameContainer extends Component {
   chooseWord() {
     const filters = {
       easy: [3, 4],
-      medium: [5, 6],
+      medium: [5, 9], //change 9 to 6 eventually;
       hard: [7, 100]
     }
     const { difficulty } = this.state;
