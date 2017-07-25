@@ -5,6 +5,7 @@ import masterWordList from '../words';
 export default class GameContainer extends Component {
   constructor() {
     super();
+    this.checkWinner = this.checkWinner.bind(this);
     this.chooseWord = this.chooseWord.bind(this);
     this.guessLetter = this.guessLetter.bind(this);
     this.handleKeyEntered = this.handleKeyEntered.bind(this);
@@ -14,9 +15,20 @@ export default class GameContainer extends Component {
       difficulty: 'medium',
       inputValue: '',
       guessed: [],
-      playing: false,
+      playing: true,
       word: '',
     };
+  }
+
+  checkWinner() {
+    const guessed = this.state.guessed;
+    const word = this.state.word.split('');
+    for (let letter of word) {
+      if (!(guessed.includes(letter))) {
+        return false;
+      }
+    }
+    return true;
   }
 
   chooseWord() {
@@ -41,6 +53,7 @@ export default class GameContainer extends Component {
     newGuess.push(inputValue);
     this.setState({
       ...this.state,
+      inputValue: '',
       guessed: newGuess
     });
   }
@@ -48,7 +61,6 @@ export default class GameContainer extends Component {
   handleKeyEntered(e) {
     if (!(this.state.playing)) return;
     const key = e.key.toLowerCase();
-    console.log(key);
     const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
     if (alphabet.includes(key)) {
       this.setState({
@@ -61,7 +73,6 @@ export default class GameContainer extends Component {
         inputValue: ''
       });
     } else if (key === 'enter' && alphabet.includes(this.state.inputValue)) {
-      console.log('entering');
       this.guessLetter();
     }
   }
@@ -79,6 +90,18 @@ export default class GameContainer extends Component {
     return masterWordList.split('\n');
   }
 
+  //lifecycles
+  componentDidUpdate() {
+    let { playing, guessed, word } = this.state;
+    if (word === '') return;
+
+    if (((playing) && (guessed.length >= 8 || this.checkWinner()))) {
+      this.setState({
+        ...this.state,
+        playing: false
+      });
+    }
+  }
 
   render() {
     return (
