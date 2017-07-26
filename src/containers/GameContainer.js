@@ -110,7 +110,6 @@ export default class GameContainer extends Component {
   componentDidUpdate() {
     let { playing, word } = this.state;
     if (word === '') return;
-    console.log(this.getIncorrect().length);
     if (((playing) && (this.getIncorrect().length >= 8 || this.checkWinner()))) {
       this.setState({
         ...this.state,

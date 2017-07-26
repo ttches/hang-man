@@ -29,13 +29,30 @@ const Game = ({onClickPlay, onKeyEntered, inputValue, guessed, word,
     });
   }
 
+  const showHint = () => {
+    if(!(playing)) return;
+    const wordSplit = word.split('');
+    const placeHolders = document.querySelectorAll('.correct');
+    let index;
+    for (let i = 0; i < wordSplit.length; i++) {
+      if (!(guessed.includes(wordSplit[i]))) {
+        index = i;
+        break;
+      }
+    }
+    placeHolders[index].innerHTML = `<span class='hint'>${wordSplit[index]}</span>`;
+  }
+
 
   return (
     <div className='game-container'>
       <div className='countdown'>{8 - incorrect.length}</div>
       <div className='word-container'>{formatCorrect()}</div>
       <input type='text' onKeyUp={onKeyEntered} value={inputValue} />
-      <button onClick={onClickPlay}>New Game</button>
+      <div className='button-container'>
+        <button className='new-game' onClick={onClickPlay}>New Game</button>
+        <button className='hint-button' onClick={showHint} title='Show hint'>?</button>
+      </div>
       <div className='incorrect-container'>{formatIncorrect}</div>
     </div>
   );

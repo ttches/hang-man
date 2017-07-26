@@ -26,11 +26,34 @@ body {
   font-size: 150px;
 }
 
-button {
-  display: block;
-  margin: auto;
+.button-container {
   margin-top: 20px;
 }
+
+.new-game {
+  margin-right: 5px;
+}
+
+.hint-button {
+  margin-left: 5px;
+}
+
+@keyframes fade {
+  from {
+    color: hsla(222, 61%, 55%, 0.3);
+  }
+  to {
+    color: hsla(222, 61%, 55%, 1);
+  }
+}
+
+.hint {
+  animation-duration: 2s;
+  animation-name: fade;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 
 input {
   font-size: 28px;
