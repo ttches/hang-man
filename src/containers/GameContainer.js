@@ -71,6 +71,7 @@ export default class GameContainer extends Component {
   }
 
   handleKeyEntered(e) {
+    console.log(e, e.key, e.keyCode);
     if (!(this.state.playing)) return;
     const key = e.key.toLowerCase();
     const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');

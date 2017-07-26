@@ -50,7 +50,7 @@ body {
 .hint {
   animation-duration: 2s;
   animation-name: fade;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   animation-direction: alternate;
 }
 
